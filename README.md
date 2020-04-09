@@ -1,4 +1,4 @@
-# SGX_SE1 and SGX_SE2
+# SE_SGX_1 and SE_SGX_2
 
 The repository includes forward and type-II backward private SSE schemes, SGX_SE1 and SGX_SE2, with trusted execution.
 
