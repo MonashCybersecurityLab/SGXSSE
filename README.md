@@ -1,8 +1,8 @@
 # Introduction
 
-We design and implement two forward and backward private SE schemes, named \textsf{SGX-SE1} and \textsf{SGX-SE2}. By using SGX, the  communication cost between the client and server of achieving forward and backward privacy in SE is significantly reduced. 
+We design and implement two forward and backward private SE schemes, named SGX-SE1 and SGX-SE2. By using SGX, the  communication cost between the client and server of achieving forward and backward privacy in SE is significantly reduced. 
 
-Both \textsf{SGX-SE1} and \textsf{SGX-SE2} leverage the SGX enclave to carefully track keyword states and document deletions, in order to minimise the communication overhead between the SGX and untrusted memory. In particular, \textsf{SGX-SE2} is an optimised version of \textsf{SGX-SE1} by employing Bloom filter to compress the information of deletions, which speeds up the search operations and  boosts the capacity of batch processing in addition and deletion.
+Both SGX-SE1 and SGX-SE2 leverage the SGX enclave to carefully track keyword states and document deletions, in order to minimise the communication overhead between the SGX and untrusted memory. In particular, SGX-SE2 is an optimised version of SGX-SE1 by employing Bloom filter to compress the information of deletions, which speeds up the search operations and  boosts the capacity of batch processing in addition and deletion.
 
 # SE_SGX_1 Execution
 
