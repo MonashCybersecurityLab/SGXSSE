@@ -45,3 +45,5 @@ Using Hardware Mode, Pre-release build:
 # Feedback
 Email the authors: shangqi.lai@monash.edu, viet.vo@monash.edu
 
+# Reference
+Viet Vo, Shangqi Lai, Xingliang Yuan, Shi-Feng Sun, Surya Nepal, and Joseph K. Liu. 2020. Accelerating Forward and Backward PrivateSearchable Encryption Using Trusted Execution. In 2020 ACNS.
