@@ -1,13 +1,13 @@
-# SE_SGX_1 and SE_SGX_2
+# Introduction
 
-The repository includes forward and type-II backward private SSE schemes, SGX_SE1 and SGX_SE2, with trusted execution.
+We design and implement two forward and backward private SE schemes, named \textsf{SGX-SE1} and \textsf{SGX-SE2}. By using SGX, the  communication cost between the client and server of achieving forward and backward privacy in SE is significantly reduced. 
 
-# SE_SGX_1
+Both \textsf{SGX-SE1} and \textsf{SGX-SE2} leverage the SGX enclave to carefully track keyword states and document deletions, in order to minimise the communication overhead between the SGX and untrusted memory. In particular, \textsf{SGX-SE2} is an optimised version of \textsf{SGX-SE1} by employing Bloom filter to compress the information of deletions, which speeds up the search operations and  boosts the capacity of batch processing in addition and deletion.
 
-## How to Build/Execute the Application 
+# SE_SGX_1 Execution
+
 1. Install Intel(R) SGX SDK for Linux* OS
 2. Build the project with the prepared Makefile:
-
 
 Using Hardware Mode, Pre-release build:
 `
@@ -20,13 +20,10 @@ Using Hardware Mode, Pre-release build:
     $ ./_cryptoTestingApp
 `
 
-## Worklog after Fork:
-Mon 4 Mar, 19
-- This version is only tested on Ubuntu 16.04/18.04 with SGX >=2.0
+4. This version is only tested on Ubuntu 16.04/18.04 with SGX >=2.0
 
-# SE_SGX_2
+# SE_SGX_2 Execution
 
-## How to Build/Execute the Application 
 1. Install Intel(R) SGX SDK for Linux* OS
 2. Build the project with the prepared Makefile:
 
@@ -42,7 +39,9 @@ Using Hardware Mode, Pre-release build:
     $ ./_cryptoTestingApp
 `
 
-## Worklog after Fork:
-Mon 4 Mar, 19
-- This version is only tested on Ubuntu 16.04/18.04 with SGX >=2.0
+4. This version is only tested on Ubuntu 16.04/18.04 with SGX >=2.0
+
+
+# Feedback
+Email the authors: shangqi.lai@monash.edu, viet.vo@monash.edu
 
