@@ -2,7 +2,7 @@
 
 We design and implement two forward and backward private SE schemes, named SGX-SE1 and SGX-SE2. By using SGX, the  communication cost between the client and server of achieving forward and backward privacy in SE is significantly reduced. 
 
-Both SGX-SE1 and SGX-SE2 leverage the SGX enclave to carefully track keyword states and document deletions, in order to minimise the communication overhead between the SGX and untrusted memory. In particular, SGX-SE2 is an optimised version of SGX-SE1 by employing Bloom filter to compress the information of deletions, which speeds up the search operations and  boosts the capacity of batch processing in addition and deletion.
+Both SGX-SE1 and SGX-SE2 leverage the SGX enclave to carefully track keyword states and document deletions, in order to minimise the communication overhead between the SGX and untrusted memory. In particular, SGX-SE2 is an optimised version of SGX-SE1 by employing Bloom filter to compress the states of database entries, which speeds up the search operations and  boosts the capacity of batch processing in addition and deletion.
 
 # SE_SGX_1 Execution
 
@@ -20,7 +20,7 @@ Using Hardware Mode, Pre-release build:
     $ ./_cryptoTestingApp
 `
 
-4. This version is only tested on Ubuntu 16.04/18.04 with SGX >=2.0
+4. This version is tested on Ubuntu 16.04/18.04 with SGX >=2.0
 
 # SE_SGX_2 Execution
 
@@ -39,11 +39,11 @@ Using Hardware Mode, Pre-release build:
     $ ./_cryptoTestingApp
 `
 
-4. This version is only tested on Ubuntu 16.04/18.04 with SGX >=2.0
+4. This version is tested on Ubuntu 16.04/18.04 with SGX >=2.0
 
 
 # Feedback
-Email the authors: shangqi.lai@monash.edu, viet.vo@monash.edu
+Email the authors: shangqi.lai@monash.edu, viet.vo@monash.edu, xingliang.yuan@monash.edu
 
 # Reference
-Viet Vo, Shangqi Lai, Xingliang Yuan, Shi-Feng Sun, Surya Nepal, and Joseph K. Liu. 2020. Accelerating Forward and Backward Private Searchable Encryption Using Trusted Execution. In 2020 ACNS.
+Viet Vo, Shangqi Lai, Xingliang Yuan, Shi-Feng Sun, Surya Nepal, and Joseph K. Liu. 2020. Accelerating Forward and Backward Private Searchable Encryption Using Trusted Execution. In the 18th International Conference on Applied Cryptography and Network Security (ACNS), 2020. (Acceptance ratio: 21%)
