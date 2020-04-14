@@ -1,0 +1,22 @@
+enclave {
+
+    from "sgx_tstdc.edl" import *;
+
+    trusted {
+
+        //public void ecall_enc_aes_gcm([in,size=len] unsigned char *decMessageIn, size_t len, [out,size=lenOut] unsigned char *encMessageOut, size_t lenOut);
+        //public void ecall_dec_aes_gcm([in,size=len] unsigned char *encMessageIn, size_t len, [out,size=lenOut] unsigned char *decMessageOut, size_t lenOut);
+        public void ecall_init([in,size=K1_len] unsigned char *K1, size_t K1_len, [in,size=K2_len] unsigned char *K2, size_t K2_len);
+        public void ecall_query_keyword([in,size=w_len] const char *keyword, size_t w_len, [in,size=v_len] int *version, size_t v_len, [in,size=c_len] int *count, size_t c_len);
+        public void ecall_update_doc([in,size=w_len] const char *keyword, size_t w_len, [in,size=v_len] int *version, size_t v_len, [in,size=c_len] int *count, size_t c_len, [in,size=id_len] const char *doc_id, size_t id_len, [in,size=op_len] const int* op, size_t op_len);
+    };
+
+    untrusted {
+    	void ocall_print_int([in] size_t *str);
+        void ocall_print_string([in, string] const char *str);
+        void ocall_get_docId([in, count=token_size, size=cipher_length] void* token_list, [out, count=token_size, size=cipher_length] void* res_list, size_t token_size, size_t cipher_length, [out,size=res_len] long *res, size_t res_len);
+        void ocall_get_delId([in, count=token_size, size=cipher_length] void* token_list, [out, count=token_size, size=cipher_length] void* del_list, size_t token_size, size_t cipher_length, [out,size=del_len] long *del, size_t del_len);
+        void ocall_send_to_client([in, count=res_size, size=cipher_length] void* res_list, size_t res_size, size_t cipher_length);
+    	void ocall_transfer_updated_entries([in, count=utoken_size, size=cipher_length] void *v1, [in, count=utoken_size, size=cipher_length] void *v2, size_t utoken_size, size_t cipher_length, [in,size=op_len] const int* op, size_t op_len);
+    };
+};
