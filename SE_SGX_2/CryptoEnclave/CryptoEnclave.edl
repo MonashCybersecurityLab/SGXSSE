@@ -26,9 +26,9 @@ enclave {
         
         void ocall_del_encrypted_doc([in, size=del_id_len] const char *del_id, size_t del_id_len);
         
-        void ocall_retrieve_M_c([in, size=_u_prime_size, count=token_size] void * _u_prime, size_t _u_prime_size,
-                                     [out, size=maxLen, count=token_size] void *_v_prime, size_t maxLen, size_t token_size,
-                                     [out, size=int_len] int *v_size, size_t int_len);
+        void ocall_retrieve_M_c([in, size=_u_prime_size] unsigned char * _u_prime, size_t _u_prime_size,
+                                     [out, size=maxLen] unsigned char *_v_prime, size_t maxLen,
+                                     [out, count=int_len] int *_v_prime_size, size_t int_len);
         
         void ocall_del_M_c_value([in, size=_u_prime_size] const unsigned char *_u_prime, size_t _u_prime_size);
 
