@@ -24,8 +24,8 @@ uint64_t timeSinceEpochMillisec() {
 
 #define ENCLAVE_FILE "CryptoEnclave.signed.so"
 
-int total_file_no = (int)100000;//50000;//100000
-int del_no = (int)60000;//5000;//10000;
+int total_file_no = (int)30000;//50000;//100000
+int del_no = (int)100;//5000;//10000;
 
 /* 	Note 1: Enclave only recognises direct pointer with count*size, where count is the number of elements in the array, and size is the size of each element
 		other further pointers of pointers should have fixed max length of array to eliminate ambiguity to Enclave (by using pointer [max_buf]).
