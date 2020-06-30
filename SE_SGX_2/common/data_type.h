@@ -38,6 +38,7 @@ typedef struct
     unsigned char content[RAND_LEN];
 } rand_t; //used to export between ecall and ocall
 
+
 typedef struct
 {
     size_t content_length;
