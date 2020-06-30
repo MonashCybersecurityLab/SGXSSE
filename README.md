@@ -15,6 +15,7 @@ Please unzip it before the execution.
 2. Build the project with the prepared Makefile:
 
    Using Hardware Mode and Debug build:
+   
        ``$ cd SGX_SE1 && make clean``
        
        ``$ make SGX_MODE=HW SGX_DEBUG=1``
@@ -32,6 +33,7 @@ Please unzip it before the execution.
 2. Build the project with the prepared Makefile:
 
    Using Hardware Mode and Debug build:
+   
       `` $ cd SGX_SE2 && make clean``
       
       `` $ make SGX_MODE=HW SGX_DEBUG=1``
@@ -50,6 +52,7 @@ Please unzip it before the execution.
 2. Build the project with the prepared Makefile:
 
    Using Hardware Mode and Debug build:
+   
       ``$ cd Bunker-B && make clean``
       
       ``$ make SGX_MODE=HW SGX_DEBUG=1``
