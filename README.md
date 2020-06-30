@@ -6,7 +6,7 @@ Both SGX-SE1 and SGX-SE2 leverage the SGX enclave to carefully track keyword sta
 
 We also implement another SGX-based SE scheme Bunker-B [2] as the baseline of our evaluation to demonstrate the advantages of our schemes in runtime and storage costs.
 
-We also add an sample STREAMING.ZIP dataset in every project for your testing.
+We also add a sample STREAMING.ZIP dataset in every project for your testing.
 Please unzip it before the execution.
 
 # SE_SGX_1 Execution
