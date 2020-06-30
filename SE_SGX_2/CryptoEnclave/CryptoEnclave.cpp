@@ -43,8 +43,8 @@ void ecall_init(unsigned char *keyF, size_t len){
 
     //init Bloom
     sgx_read_rand(K_BF, ENC_KEY_SIZE);
-    uint64_t vector_size = 9500000;//1.1mb;//3100000;
-    uint8_t numHashs = 13;
+    uint64_t vector_size = 35000000;//4mb hold up to 1.5 million key,value pairs
+    uint8_t numHashs = 23;
     myBloomFilter = new BloomFilter(vector_size,numHashs);
 
 }
@@ -67,7 +67,9 @@ void ecall_addDoc(char *doc_id, size_t id_length,char *content,int content_lengt
     for(std::vector<std::string>::iterator it = wordList.begin(); it != wordList.end(); ++it) {
       
       std::string word = (*it);
- 
+    
+      //printf("keyword %s", (char*)word.c_str());
+
       entryKey k_w, k_c;
 
       k_w.content_length = AESGCM_MAC_SIZE + AESGCM_IV_SIZE + word.length(); 
@@ -88,6 +90,8 @@ void ecall_addDoc(char *doc_id, size_t id_length,char *content,int content_lengt
         c = got->second;
       }
       c++;
+
+      //printf("State c: %d \n", c);
 
       //find k_id
       unsigned char *k_id =  (unsigned char *) malloc(ENTRY_HASH_KEY_LEN_128); 
@@ -135,6 +139,17 @@ void ecall_addDoc(char *doc_id, size_t id_length,char *content,int content_lengt
 
       index++;
 
+      //update bloom filter
+      size_t m_len = (k_w.content_length + id_length);
+      unsigned char *m =  (unsigned char *) malloc( m_len * sizeof(unsigned char));  
+      memcpy(m,(unsigned char*)k_w.content,k_w.content_length);
+      memcpy(m+k_w.content_length,(unsigned char*)doc_id,id_length);
+      size_t len2 = ENTRY_HASH_KEY_LEN_128 + ENC_KEY_SIZE;
+      unsigned char *m_prime = (unsigned char *) malloc(len2 * sizeof(unsigned char));
+      hash_SHA128_key(K_BF,ENC_KEY_SIZE, m,m_len,m_prime);
+
+      myBloomFilter->add((uint8_t*)m_prime,len2);
+      
       //free memory
       free(k_id);
       free(_u);
@@ -148,17 +163,7 @@ void ecall_addDoc(char *doc_id, size_t id_length,char *content,int content_lengt
       free(message);
       free(message2);
 
-      //update bloom filter
-      size_t m_len = (k_w.content_length + id_length);
-      unsigned char *m =  (unsigned char *) malloc( m_len * sizeof(unsigned char));  
-      memcpy(m,(unsigned char*)k_w.content,k_w.content_length);
-      memcpy(m+k_w.content_length,(unsigned char*)doc_id,id_length);
-      size_t len2 = ENTRY_HASH_KEY_LEN_128 + ENC_KEY_SIZE;
-      unsigned char *m_prime = (unsigned char *) malloc(len2 * sizeof(unsigned char));
-      hash_SHA128_key(K_BF,ENC_KEY_SIZE, m,m_len,m_prime);
 
-      myBloomFilter->add((uint8_t*)m_prime,len2);
-      
       //free memory for BF
       free(m);
       free(m_prime);
@@ -207,15 +212,17 @@ void ecall_search(const char *keyword, size_t keyword_len){
         w_c_max = got->second;
     }
 
-    //printf("c max value [1-c] %d", w_c_max);
+    //printf("c max value [1-c] %d\n", w_c_max);
 
     //init st_w_c and Q_w
-    std::list<int> st_w_c;
+    std::vector<int> st_w_c;
     for(int i_c = 1; i_c <= w_c_max;i_c++)
             st_w_c.push_back(i_c);
 
+    std::vector<int> st_w_c_difference;
 
-   
+    //printf("deleted list size %d\n",d.size());
+
     size_t _u_prime_size = ENTRY_HASH_KEY_LEN_128 + k_w.content_length;
     unsigned char *_u_prime = (unsigned char *) malloc(_u_prime_size * sizeof(unsigned char));
     unsigned char *_v_prime = (unsigned char *) malloc(ENTRY_VALUE_LEN * sizeof(unsigned char));
@@ -229,9 +236,13 @@ void ecall_search(const char *keyword, size_t keyword_len){
         unsigned char *m =  (unsigned char *) malloc( m_len * sizeof(unsigned char));  
         memcpy(m,(unsigned char*)k_w.content,k_w.content_length);
         memcpy(m+k_w.content_length,(unsigned char*)del_id.c_str(),del_id.size());
+
         size_t len2 = ENTRY_HASH_KEY_LEN_128 + ENC_KEY_SIZE;
         unsigned char *m_prime = (unsigned char *) malloc(len2 * sizeof(unsigned char));
         hash_SHA128_key(K_BF,ENC_KEY_SIZE, m,m_len,m_prime);
+
+        //it come heres
+        //print_bytes((uint8_t*)m_prime,(uint32_t)len2);
 
          //check bloom filter
         if(myBloomFilter->possiblyContains((uint8_t*)m_prime,len2)){
@@ -249,11 +260,14 @@ void ecall_search(const char *keyword, size_t keyword_len){
             dec_aes_gcm(k_c.content,_v_prime,_v_prime_size,
                     c_value_content,c_value_len);
             
+            //printf(">%s",(char*)del_id.c_str());
+            //printf("deleted counter %s", (char*)c_value_content);
+
             //print_bytes((uint8_t*)c_value_content,(uint32_t)c_value_len);
             std::string c_str1((char*)c_value_content,c_value_len);
 
             int temp = std::stoi(c_str1);
-            st_w_c.remove(temp);
+            st_w_c_difference.push_back(temp);
             
             //delete I_c by ocall (delete later by batch ???)
             //ocall_del_M_c_value(_u_prime,_u_prime_size);      
@@ -277,10 +291,16 @@ void ecall_search(const char *keyword, size_t keyword_len){
     free(_u_prime);
     free(_v_prime);
 
-    //printf("----");
-    size_t pair_no = st_w_c.size();
+    std::vector<int> merged_st;
 
-    
+    std::set_difference(st_w_c.begin(),st_w_c.end(),
+                        st_w_c_difference.begin(),st_w_c_difference.end(),
+                        std::back_inserter(merged_st));
+
+    //printf("----");
+    size_t pair_no = merged_st.size();
+    printf("No. of non-deleted ids %d",pair_no);
+
     //declare query tokens for ocall
     rand_t Q_w_u_arr[pair_no];
     rand_t Q_w_id_arr[pair_no];
@@ -290,11 +310,13 @@ void ecall_search(const char *keyword, size_t keyword_len){
     size_t len = ENTRY_HASH_KEY_LEN_128 + k_w.content_length;
     unsigned char *k_id =  (unsigned char *) malloc(ENTRY_HASH_KEY_LEN_128); 
 
-    for (auto itr = st_w_c.begin();itr != st_w_c.end(); itr++) { 
+    for (int j=0; j< pair_no; j++) { 
 
         //generate u token H2(k_w,c)
-        std::string c_str = std::to_string(*itr);
+        std::string c_str = std::to_string(merged_st[j]);
         char const *c_char = c_str.c_str();
+
+        //printf("Non-deleted states %s",c_char);
 
         unsigned char *_u = (unsigned char *) malloc(len * sizeof(unsigned char));
         hash_SHA128_key(k_w.content,k_w.content_length, c_char,c_str.length(),_u);

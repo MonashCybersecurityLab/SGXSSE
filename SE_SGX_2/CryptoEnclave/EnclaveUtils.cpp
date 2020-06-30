@@ -48,15 +48,17 @@ std::vector<std::string>  wordTokenize(char *content,int content_length){
     memcpy(content_cpy,content,content_length);
 
     char *token = strtok(content_cpy,delim);
-    while (token != NULL)
+    while (token != NULL )
     {
-        result.push_back(token); 
-        token =  strtok(NULL,delim);
+            result.push_back(token); 
+            token =  strtok(NULL,delim);
     }
 
     free(token);
     free(content_cpy);
-    
+    //the last , will be counted
+    //result.erase(result.end()-1);
+
     return result;
 }
 
