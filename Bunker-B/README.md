@@ -1,7 +1,7 @@
 # Bunker-B
 
 
-We also add an sample STREAMING.ZIP dataset in every project for your testing.
+We also add a sample STREAMING.ZIP dataset in every project for your testing.
 Please unzip it before the execution.
 
 ## How to Build/Execute the Application 
