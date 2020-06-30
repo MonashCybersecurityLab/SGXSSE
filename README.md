@@ -15,7 +15,7 @@ Please unzip it before the execution.
 2. Build the project with the prepared Makefile:
 
    Using Hardware Mode, Pre-release build:
-       ``$ cd SGX_SE1 && make SGX_MODE=HW SGX_PRERELEASE=1``
+       ``$ cd SGX_SE1 && make SGX_MODE=HW SGX_DEBUG=1``
 
 3. Execute the binary directly:
   `
@@ -30,7 +30,7 @@ Please unzip it before the execution.
 2. Build the project with the prepared Makefile:
 
    Using Hardware Mode, Pre-release build:
-      `` $ cd SGX_SE2 && make SGX_MODE=HW SGX_PRERELEASE=1``
+      `` $ cd SGX_SE2 && make SGX_MODE=HW SGX_DEBUG=1``
 
 3. Execute the binary directly:
   `
@@ -46,7 +46,7 @@ Please unzip it before the execution.
 2. Build the project with the prepared Makefile:
 
    Using Hardware Mode, Pre-release build:
-      ``$ cd Bunker-B && make SGX_MODE=HW SGX_PRERELEASE=1``
+      ``$ cd Bunker-B && make SGX_MODE=HW SGX_DEBUG=1``
 
 3. Execute the binary directly:
    `
