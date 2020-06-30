@@ -57,7 +57,7 @@ Please unzip it before the execution.
 
 
 # Feedback
-Email the authors: shangqi.lai@monash.edu, viet.vo@monash.edu, xingliang.yuan@monash.edu
+Email the authors: viet.vo@monash.edu, shangqi.lai@monash.edu, xingliang.yuan@monash.edu
 
 # Reference
 [1] Viet Vo, Shangqi Lai, Xingliang Yuan, Shi-Feng Sun, Surya Nepal, and Joseph K. Liu. 2020. Accelerating Forward and Backward Private Searchable Encryption Using Trusted Execution. In the 18th International Conference on Applied Cryptography and Network Security (ACNS), 2020. (Acceptance ratio: 21%)
