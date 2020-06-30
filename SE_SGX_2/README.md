@@ -2,6 +2,14 @@
 We also add a sample STREAMING.ZIP dataset in every project for your testing.
 Please unzip it before the execution.
 
+You may want to test different following total number of supporting file and deletion proportion in CryptoTestingApp/CryptoTestingApp.cpp.
+
+For example:
+
+int total_file_no = (int)200000;//50000;//100000
+
+int del_no = (int) 20000;//10000;
+
 ## How to Build/Execute the Application 
 
 1. Install Intel(R) SGX SDK for Linux* OS
