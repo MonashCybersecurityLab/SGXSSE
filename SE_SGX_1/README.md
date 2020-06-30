@@ -1,18 +1,22 @@
 # SE_SGX_1
 
+We also add an sample STREAMING.ZIP dataset in every project for your testing.
+Please unzip it before the execution.
+
 ## How to Build/Execute the Application 
 1. Install Intel(R) SGX SDK for Linux* OS
 2. Build the project with the prepared Makefile:
 
-
-Using Hardware Mode, Pre-release build:
-`
-    $ make SGX_MODE=HW SGX_PRERELEASE=1
+   Using Hardware Mode and Debug build:
+   
+       `` $ cd SGX_SE1 && make clean``
+       
+       `` $ make SGX_MODE=HW SGX_DEBUG=1``
 
 3. Execute the binary directly:
-`
-    $ ./_cryptoTestingApp
-`
+  `
+    $ ./cryptoTestingApp
+  `
 
 ## Worklog after Fork:
 Mon 4 Mar, 19
