@@ -9,7 +9,7 @@ Please unzip it before the execution.
 
    Using Hardware Mode and Debug build:
    
-      `` $ cd SGX_SE2 && make clean``
+      `` $ cd SE_SGX_2 && make clean``
       
       `` $ make SGX_MODE=HW SGX_DEBUG=1``
 
