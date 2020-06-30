@@ -24,8 +24,8 @@ uint64_t timeSinceEpochMillisec() {
 
 #define ENCLAVE_FILE "CryptoEnclave.signed.so"
 
-int total_file_no = (int)30000;//50000;//100000
-int del_no = (int)100;//5000;//10000;
+int total_file_no = (int)100000;//50000;//100000
+int del_no = (int)50000;//5000;//10000;
 
 /* 	Note 1: Enclave only recognises direct pointer with count*size, where count is the number of elements in the array, and size is the size of each element
 		other further pointers of pointers should have fixed max length of array to eliminate ambiguity to Enclave (by using pointer [max_buf]).
@@ -154,7 +154,7 @@ int main()
 	/*** Update Protocol with op = add */
 	for(int i=1;i <= total_file_no; i++){  //total_file_no
 		//client read a document
-		printf("->%d",i);
+		//printf("->%d",i);
 		
 		docContent *fetch_data;
 		fetch_data = (docContent *)malloc(sizeof( docContent));
@@ -192,25 +192,25 @@ int main()
 	//** Update Protocol with op = del (id)
 	printf("\nDeleting doc\n");
 	
-	//docId* delV = new docId[del_no];
+	docId* delV = new docId[del_no];
 
 	docId delV_i;
 	for(int del_index=1; del_index <=del_no; del_index++){
-		//printf("->%s",delV_i[del_index].doc_id);
+//		//printf("->%s",delV_i[del_index].doc_id);
 		myClient->Del_GivenDocIndex(del_index, &delV_i);
 		ecall_delDoc(eid,delV_i.doc_id,delV_i.id_length);
 	}
 
 	free(delV_i.doc_id);
 
-	std::string s_keyword[2]= {"list","clinton"}; 
+	std::string s_keyword[1]= {"list"}; 
 
-	for (int s_i = 0; s_i < 2; s_i++){
+	for (int s_i = 0; s_i < 1; s_i++){
 		printf("\nSearching ==> %s\n", s_keyword[0].c_str());
 
 		std::cout << timeSinceEpochMillisec() << std::endl;
 		ecall_search(eid, s_keyword[0].c_str(), s_keyword[0].size());
-		printf("\n");
+		//printf("\n");
 		std::cout << timeSinceEpochMillisec() << std::endl;
 	}
 
