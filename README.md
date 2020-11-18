@@ -1,6 +1,10 @@
 # Introduction
 
-We design and implement two forward and Type-II backward private SE schemes, named SGX-SE1 and SGX-SE2 [1]. By using SGX, the  communication cost between the client and server of achieving forward and backward privacy in SE is significantly reduced. 
+We design and implement forward and Type-I backward-private SE scheme, named Maiden. Our idea is straightforward yet practical. We keep the states of updates, the deletion information, and a sketch of insertions inside SGX Enclave so as to eliminate the leakage in updates and allow minimally necessary leakage during the search.
+
+We compare Maiden with two other baseline schemes. First one is the simulation of Fort's enclave [2] and a ported version of Orion[3], (namedly Orion*) to SGX Enclave.
+
+We also design and implement two forward and Type-II backward private SE schemes, named SGX-SE1 and SGX-SE2 [1]. By using SGX, the  communication cost between the client and server of achieving forward and backward privacy in SE is significantly reduced. 
 
 Both SGX-SE1 and SGX-SE2 leverage the SGX enclave to carefully track keyword states and document deletions, in order to minimise the communication overhead between the SGX and untrusted memory. In particular, SGX-SE2 is an optimised version of SGX-SE1 by employing Bloom filter to compress the states of database entries, which speeds up the search operations and  boosts the capacity of batch processing in addition and deletion. 
 
@@ -72,3 +76,5 @@ Email the authors: viet.vo@monash.edu, shangqi.lai@monash.edu, xingliang.yuan@mo
 [1] Viet Vo, Shangqi Lai, Xingliang Yuan, Shi-Feng Sun, Surya Nepal, and Joseph K. Liu. 2020. Accelerating Forward and Backward Private Searchable Encryption Using Trusted Execution. In the 18th International Conference on Applied Cryptography and Network Security (ACNS), 2020. (Acceptance ratio: 21%)
 
 [2] Ghous *Amjad*, Seny *Kamara*, and Tarik Moataz. 2019. Forward and Backward Private Searchable Encryption with SGX. In the 12th European Workshop on Systems Security (EuroSec), 2019.
+
+[3] Javad Ghareh Chamani, Dimitrios Papadopoulos, Charalampos Papamanthou,and Rasool Jalili. 2018. New Constructions for Forward and Backward Private Symmetric Searchable Encryption. In ACM CCS 2018.
