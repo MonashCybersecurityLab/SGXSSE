@@ -6,6 +6,8 @@ We compare Maiden with two other baseline schemes. First one is the simulation o
 
 We also design and implement two forward and Type-II backward private SE schemes, named SGX-SE1 and SGX-SE2 [1]. By using SGX, the  communication cost between the client and server of achieving forward and backward privacy in SE is significantly reduced. 
 
+We also attach datasets of streaming_enron.zip and streaming_syn_10_6.zip for testing purpose.
+
 Both SGX-SE1 and SGX-SE2 leverage the SGX enclave to carefully track keyword states and document deletions, in order to minimise the communication overhead between the SGX and untrusted memory. In particular, SGX-SE2 is an optimised version of SGX-SE1 by employing Bloom filter to compress the states of database entries, which speeds up the search operations and  boosts the capacity of batch processing in addition and deletion. 
 
 We also implement another SGX-based SE scheme Bunker-B [2] as the baseline of our evaluation to demonstrate the advantages of our schemes in runtime and storage costs.
