@@ -1,0 +1,20 @@
+enclave {
+
+    from "sgx_tstdc.edl" import *;
+    
+    
+    trusted {
+
+        public void ecall_init(unsigned int stash_del_size, unsigned int w_delete_token_size);
+        public void ecall_scan();
+        public void ecall_reset();
+
+    };
+
+    untrusted {
+
+        void ocall_print_string([in, string] const char *str);
+    
+
+    };
+};
